@@ -1,0 +1,192 @@
+---
+title: "Project report(outlook)"
+author: "venkata sai krishna Nivarthi"
+date: "30/06/2021"
+output: html_document
+---
+## Reading the data and opening in Rstudio
+```{r}
+library(readxl)
+data1=read_xlsx("C:\\Users\\VENKATA SAI\\Desktop\\OUTLOOK\\Untitled form (Responses).xlsx")
+summary(data1) #to know the summary of the data
+View(data1)
+
+```
+#Finding the missing values in the data set
+```{r}
+sum(is.na(data1))
+
+
+```
+##there is no missing data, we can continue with the analysis
+
+```{r}
+library(dplyr) #This library is used to sebsetting the data
+data_age=filter(data1,data1$`Age(In years)`<40)
+data_age
+dim(data_age)
+
+```
+
+##We have 171 respondents whose age is below 40
+
+```{r}
+library(ggplot2)
+data1$Gender=as.factor(data1$Gender)
+plot(data1$Gender,type = "h")
+
+```
+#From the responses, the male majority is more than female, where males are around 130 and females are around 80, this says that males have given the more responses
+
+
+```{r}
+library(ggplot2) #This library is used for visualization
+ggplot(data1,aes(`Marital Status?`, fill=Gender)) +geom_bar(position='dodge')
+
+```
+#From this graph we can say that married male and female are less compared to unmarried, and married women are quite less than the married men, so many of the respondendts are in unmarried.
+
+```{r}
+
+ggplot(data1,aes(`Which part of the India do you belong to?`, fill=Gender)) +geom_bar(position="dodge")
+
+```
+#From the above graph south region respondents are more in ehich south male are more, least among the dta is east women, west and north respondents are in normal range. This says the questionnaire which was circulated more amon the south region.
+
+```{r}
+
+ggplot(data1,aes(data1$`Marital Status?`, fill=data1$`Are you aware of outlook magazine?`))+geom_bar(position="dodge")
+
+
+```
+#From the abouve graph, we get to know that most of the respondents(married and unmarried) know about the magazine, but few are nor aware, so by increase in advertisement and brand awareness, it will be known to many of the people.
+
+```{r}
+
+ggplot(data1,aes(data1$`Which part of the India do you belong to?`, fill=data1$`Are you aware of outlook magazine?`))+geom_bar(position="dodge")+facet_grid(~data1$`Marital Status?`)
+
+```
+#From the above graph, south unmarried know about the magazine and the same unmarried from the south dont know about the magazine, so increasing the brand awaress through campaigns and social serive, the company can be recognized.
+
+```{r}
+ggplot(data1, aes(data1$`Which type of magazine do you prefer?`, fill=Gender))+geom_bar(position="dodge")+facet_grid(~data1$`Which part of the India do you belong to?`)
+
+```
+#Most of the respondents are male and preferring both print edition and digital edition, whereas in south region it is more and least is in east region.
+
+```{r}
+ggplot(data1,aes(data1$`Which part of the India do you belong to?`, fill=data1$`Which mode do you prefer buying a magazine from?`))+geom_bar(position="dodge")
+
+```
+#From the graph if we compare the regions, in all the regions respondendts are almost equally preferrin the both offline and online ordering of the magazine, Except in the west.
+
+
+```{r}
+
+ggplot(data1,aes(data1$`Occupation?`, fill=data1$`Which type of magazine do you prefer?`))+geom_bar(position="dodge")
+
+```
+#From the graph, home maker are prefering digital and print edition equally, self employees are preferring digital edition more, students are prefering print edition more, and working professional are preferring print edition more.
+
+```{r}
+
+ggplot(data1,aes(data1$`How much time do you spend on reading one complete Magazine?`, fill=data1$`Which part of the India do you belong to?`))+geom_bar(position="dodge")
+
+
+```
+#From the above graph, most of the Respondents are taking More than 1 week to read the magazine, so weekly and monthlu magazines are more preferred and they have intention to buy more weekly and monthly magazines.
+
+```{r}
+ggplot(data1,aes(data1$`Considering the current pandemic situation, would you consider buying magazines? (1 being strongly disagree, 2 being Disagree, 3 being neutral, 4 being Agree, 5 being Strongly agree)`))+geom_histogram()
+
+```
+#During the covid pandemic, almost all the respondents are not interested to buy the magaines.
+
+
+```{r}
+ggplot(data1,aes(data1$`Which part of the India do you belong to?`, fill=data1$`Do Magazines carry relevant information?`))+geom_bar(position="dodge")+facet_grid(~data1$`Marital Status?`)
+
+
+```
+
+
+```{r}
+library(ggplot2)
+ggplot(data1,aes(data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Price]`, fill=data1$`Occupation?`))+geom_bar(position='dodge') +facet_grid(~data1$`Which part of the India do you belong to?`)
+ggplot(data1,aes(data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Quality]`, fill=data1$`Occupation?`))+geom_bar(position='dodge')
+ggplot(data1,aes(data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Customer service]`, fill=data1$`Occupation?`))+geom_bar(position='dodge')
+ggplot(data1,aes(data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Environment Friendly]`, fill=data1$`Occupation?`))+geom_bar(position='dodge')
+ggplot(data1,aes(data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Content]`, fill=data1$`Occupation?`))+geom_bar(position='dodge')
+ggplot(data1,aes(data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Easy Convenience of Delivery ]`, fill=data1$`Occupation?`))+geom_bar(position='dodge')
+ggplot(data1,aes(data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Packaging]`, fill=data1$`Occupation?`))+geom_bar(position='dodge')
+ggplot(data1,aes(data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Availability]`, fill=data1$`Occupation?`))+geom_bar(position='dodge')
+ggplot(data1,aes(data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Offers and Discounts]`, fill=data1$`Occupation?`))+geom_bar(position='dodge')
+ggplot(data1,aes(data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Advertisement]`, fill=data1$`Occupation?`))+geom_bar(position='dodge')
+
+
+
+
+
+```
+
+```{r}
+
+ggplot(data1,aes(data1$`Which mode do you prefer buying a magazine from?`, fill= data1$`Which part of the India do you belong to?`))+geom_bar(position="dodge")+facet_grid(~data1$Gender)
+
+```
+
+#	According to the graph, female are interested in buying through offline mode from south region, except in west region, most of the females are preferring offline mode.
+#Most of the males prefer online buying of the magazine and more data is from south region.
+#Outlook Company should increase offline subscription for females in turn it increases sales for the company.
+#	Female online from east region are less in preferring magazine.
+
+```{r}
+
+ggplot(data1,aes(data1$`Which mode do you prefer buying a magazine from?`, fill=data1$`Which type of magazine do you prefer?`))+geom_bar(position="dodge")+facet_grid(~data1$`Which part of the India do you belong to?`)
+
+
+
+```
+#	In east India offline mode of ordering is having greatest importance and online mode of digital edition is also preferred by east India respondents.
+#	In North India people prefer to order print edition through offline mode and digital edition through online mode.
+#	In west India people prefer to order print edition through offline mode and digital edition through online mode.
+#	All regions in India should be circulated with the regional language magazines.
+#	From all regions respondents are preferring both Online and offline mode to buy the magazine.
+
+```{r}
+
+
+
+
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Price]`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Quality]`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Customer service]`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Environment Friendly]`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Content]`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Easy Convenience of Delivery ]`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Packaging]`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Availability]`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Offers and Discounts]`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`What do you take under consideration while buying a magazine? (on the scale of 1-5) [Advertisement]`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`How much time do you spend on reading one complete Magazine?`)
+
+
+
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$Gender)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`Marital Status?`)
+chisq.test(data1$`Which mode do you prefer buying a magazine from?`, data1$`Occupation?`)
+
+
+```
+##Null Hypothesis- there is no association between the variables
+##alternate hypothesis- there is a association between the variables
+##P value less than 0.05 we reject the null hypothesis and we accept the alternate hypothesis
+##So from the above tests we can say that there is a association between the preference to buy and price, customer service, environment friendly, offers and discounts, advertisement, spending time and others have no association.
+## so from the output, 
+
+
+
+
+
+
+
